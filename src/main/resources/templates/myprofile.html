@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile</title>
+
+<style>
+
+/* 🔷 Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🔷 Navbar (same as dashboard) */
+.navbar {
+    background: rgba(10, 61, 98, 0.9);
+    padding: 15px 20px;
+    color: white;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+/* 🔷 Background */
+body {
+    background: linear-gradient(rgba(10,61,98,0.85), rgba(10,61,98,0.85)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    min-height: 100vh;
+}
+
+/* 🔷 Profile Card */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+}
+
+.profile-card {
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.profile-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0a3d62;
+}
+
+/* 🔷 Info */
+.info {
+    margin-bottom: 15px;
+}
+
+.info label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.info span {
+    display: block;
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+/* 🔷 Button */
+.btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    background: linear-gradient(135deg, #38ada9, #079992);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔷 Navbar -->
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo">🏥 HealthCare</div>
+
+        <ul class="nav-links">
+            <li><a href="/dashboard">Home</a></li>
+            <li><a href="/doctors">Doctors</a></li>
+            <li><a href="/appointments">Appointments</a></li>
+            <li><a href="/records">Records</a></li>
+        </ul>
+
+        <div>
+            👤 <span th:text="${patient.firstname}"></span>
+        </div>
+    </div>
+</div>
+
+<!-- 🔷 Profile Section -->
+<div class="profile-container">
+
+    <div class="profile-card">
+        <h2>My Profile</h2>
+
+        <div class="info">
+            <label>First Name</label>
+            <span th:text="${patient.firstname}"></span>
+        </div>
+
+        <div class="info">
+            <label>Last Name</label>
+            <span th:text="${patient.lastname}"></span>
+        </div>
+
+        <div class="info">
+            <label>Email</label>
+            <span th:text="${patient.email}"></span>
+        </div>
+
+        <div class="info">
+            <label>Phone Number</label>
+            <span th:text="${patient.number}"></span>
+        </div>
+
+        <button class="btn" onclick="location.href='/'">Back to Dashboard</button>
+    </div>
+
+</div>
+
+</body>
+</html>

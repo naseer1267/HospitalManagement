@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Register</title>
+
+<style>
+
+/* 🔷 Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🔷 Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(10, 61, 98, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.btn-login {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #38ada9, #079992);
+    border: none;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* 🔷 Background */
+body {
+    min-height: 100vh;
+    background: linear-gradient(rgba(10,61,98,0.85), rgba(10,61,98,0.85)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+    overflow-y: auto;
+}
+
+/* 🔷 Section (FIXED SPACING) */
+.register-section {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+/* 🔷 Form Card */
+.form-container {
+    background: rgba(255,255,255,0.96);
+    padding: 35px;
+    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    margin: 20px 0;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0a3d62;
+}
+
+/* 🔷 Inputs */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #333;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 11px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #38ada9;
+    box-shadow: 0 0 8px rgba(56,173,169,0.4);
+    outline: none;
+}
+
+/* 🔷 Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #38ada9, #079992);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* 🔷 Footer */
+.footer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.footer a {
+    color: #38ada9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🏥 HealthCare</div>
+
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Patients</a></li>
+            <li><a href="#">Doctors</a></li>
+            <li><a href="#">Appointments</a></li>
+        </ul>
+
+        <a href="/login">
+            <button class="btn-login">Login</button>
+        </a>
+    </div>
+</nav>
+
+
+<section class="register-section">
+
+<div class="form-container">
+    <h2>Patient Registration</h2>
+
+    <form action="/registerPatient" method="post" onsubmit="return validatePassword()">
+        <div class="input-group">
+            <label>First Name</label>
+            <input type="text" name="firstname" required>
+        </div>
+
+        <div class="input-group">
+            <label>Last Name</label>
+            <input type="text" name="lastname" required>
+        </div>
+
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input type="tel" name="number" required>
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="input-group">
+            <label>Create Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="input-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword" required>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+
+    <div class="footer">
+        <p>Already registered? <a href="/login">Login</a></p>
+    </div>
+</div>
+
+</section>
+
+
+<script>
+
+
+
+// Password validation
+function validatePassword() {
+    let pass = document.getElementById("password").value;
+    let confirm = document.getElementById("confirmPassword").value;
+
+    if (pass !== confirm) {
+        alert("Passwords do not match!");
+        return false;
+    }
+
+    if (pass.length < 6) {
+        alert("Password must be at least 6 characters!");
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+</body>
+</html>

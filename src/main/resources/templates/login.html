@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Login</title>
+
+<style>
+
+/* 🔷 Same Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🔷 Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(10, 61, 98, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.btn-login {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #38ada9, #079992);
+    border: none;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* 🔷 SAME BACKGROUND */
+body {
+    min-height: 100vh;
+    background: linear-gradient(rgba(10,61,98,0.85), rgba(10,61,98,0.85)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+    overflow-y: auto;
+}
+
+/* 🔷 Section */
+.login-section {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+/* 🔷 Card */
+.form-container {
+    background: rgba(255,255,255,0.96);
+    padding: 35px;
+    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0a3d62;
+}
+
+/* 🔷 Inputs */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 11px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.input-group input:focus {
+    border-color: #38ada9;
+    box-shadow: 0 0 8px rgba(56,173,169,0.4);
+    outline: none;
+}
+
+/* 🔷 Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #38ada9, #079992);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* 🔷 Footer */
+.footer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.footer a {
+    color: #38ada9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔷 Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🏥 HealthCare</div>
+
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Patients</a></li>
+            <li><a href="#">Doctors</a></li>
+            <li><a href="#">Appointments</a></li>
+        </ul>
+
+        <a href="/login">
+            <button class="btn-login">Login</button>
+        </a>
+    </div>
+</nav>
+
+<!-- 🔷 Login Form -->
+<section class="login-section">
+
+<div class="form-container">
+    <h2>Patient Login</h2>
+
+    <form action="/loginPatient" method="post">
+
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input type="tel" name="number" required>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+
+    <div class="footer">
+        <p>Don't have an account? <a href="/SignUp">Register</a></p>
+    </div>
+</div>
+
+</section>
+
+</body>
+</html>
