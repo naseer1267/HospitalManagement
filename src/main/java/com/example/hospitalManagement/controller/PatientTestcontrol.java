@@ -75,5 +75,31 @@ public class PatientTestcontrol {
 
 	    return "myprofile.html";
 	}
+	
+	// 1. Shows the Admin Login Page
+    @GetMapping("/admin")
+    public String adminLogin() {
+        return "adminlogin.html";
+    }
 
+    // 2. Checks the Admin Credentials
+    @PostMapping("/loginAdmin")
+    public String loginAdmin(@RequestParam String number, 
+                             @RequestParam String password, 
+                             Model model, 
+                             HttpSession session) {
+        
+        // Hardcoded admin credentials for the single admin
+        String adminMobile = "9876543210"; 
+        String adminPass = "admin123";
+
+        // Check if the input matches our single admin data
+        if (adminMobile.equals(number) && adminPass.equals(password)) {
+            session.setAttribute("admin", "SuperAdmin");
+            return "admindashboard.html"; // Login successful
+        } else {
+            model.addAttribute("error", "Invalid Admin Mobile Number or Password");
+            return "adminlogin.html"; // Login failed
+        }
+    }
 }
