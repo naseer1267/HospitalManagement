@@ -26,13 +26,11 @@ public class AdminController {
     @Autowired
     PatientService patientService;
 
-    // 1. Shows the Admin Login Page
     @GetMapping("/admin")
     public String adminLogin() {
         return "adminlogin.html";
     }
 
-    // 2. Checks the Admin Credentials & Loads Dashboard
     @PostMapping("/loginAdmin")
     public String loginAdmin(@RequestParam String number,
                              @RequestParam String password,
@@ -45,9 +43,11 @@ public class AdminController {
         if (adminMobile.equals(number) && adminPass.equals(password)) {
             session.setAttribute("admin", "SuperAdmin");
             
-            // Fetch all patients and send to the dashboard for the dropdown
             List<Patient> allPatients = patientService.getAllPatients();
             model.addAttribute("patients", allPatients);
+            
+            // 🔹 Opens the main Dashboard by default on login!
+            model.addAttribute("activeTab", "dashboard"); 
             
             return "admindashboard.html"; 
         } else {
@@ -56,19 +56,14 @@ public class AdminController {
         }
     }
 
-    // 3. Handles Adding a New Record
+ // 3. Handles Adding a New Record
     @PostMapping("/addRecord")
     public String addRecord(
-            @RequestParam int patientId,
-            @RequestParam String recordType,
-            @RequestParam LocalDate recordDate,
-            @RequestParam String details,
+            @RequestParam int patientId, @RequestParam String recordType,
+            @RequestParam LocalDate recordDate, @RequestParam String details,
             Model model, HttpSession session) {
 
-        // Security check
-        if (session.getAttribute("admin") == null) {
-            return "adminlogin.html"; 
-        }
+        if (session.getAttribute("admin") == null) return "adminlogin.html"; 
 
         MedicalRecord record = new MedicalRecord();
         record.setPatientId(patientId);
@@ -78,8 +73,12 @@ public class AdminController {
         
         recordService.saveRecord(record);
 
-        // Reload the patient list so the dropdown still works after adding
         model.addAttribute("patients", patientService.getAllPatients());
+        
+        // 🔹 Attach the message, but tell the page to stay on the 'records' tab
+        model.addAttribute("successMessage", "✅ Record Added Successfully!");
+        model.addAttribute("activeTab", "records"); 
+        
         return "admindashboard.html";
     }
 
@@ -87,15 +86,16 @@ public class AdminController {
     @PostMapping("/removeRecord")
     public String removeRecord(@RequestParam int recordId, Model model, HttpSession session) {
         
-        // Security check
-        if (session.getAttribute("admin") == null) {
-            return "adminlogin.html"; 
-        }
+        if (session.getAttribute("admin") == null) return "adminlogin.html"; 
 
         recordService.deleteRecord(recordId);
 
-        // Reload the patient list so the dropdown still works after removing
         model.addAttribute("patients", patientService.getAllPatients());
+        
+        // 🔹 Attach the message, but tell the page to stay on the 'records' tab
+        model.addAttribute("successMessage", "🗑️ Record Removed Successfully!");
+        model.addAttribute("activeTab", "records"); 
+        
         return "admindashboard.html";
     }
 }
