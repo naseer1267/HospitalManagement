@@ -15,88 +15,167 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* 🔷 Layout */
+/* 🔷 Background */
 body {
     display: flex;
+    background: linear-gradient(rgba(10,61,98,0.9), rgba(10,61,98,0.9)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
 }
 
 /* 🔷 Sidebar */
 .sidebar {
-    width: 230px;
+    width: 240px;
     height: 100vh;
-    background: #0a3d62;
+    background: rgba(10,61,98,0.95);
     color: white;
     position: fixed;
-    padding: 20px;
+    padding: 25px;
 }
 
 .sidebar h2 {
-    margin-bottom: 30px;
-}
-
-.sidebar ul {
-    list-style: none;
+    font-size: 24px;
+    margin-bottom: 40px;
 }
 
 .sidebar ul li {
     padding: 12px;
+    margin-bottom: 12px;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 .sidebar ul li:hover {
-    background: #38ada9;
+    background: linear-gradient(135deg, #38ada9, #079992);
 }
 
-/* 🔷 Main Content */
+/* 🔷 Main */
 .main {
-    margin-left: 230px;
+    margin-left: 240px;
     width: 100%;
 }
 
 /* 🔷 Topbar */
 .topbar {
-    background: #38ada9;
-    padding: 15px;
+    background: linear-gradient(135deg, #38ada9, #079992);
+    padding: 18px 30px;
     color: white;
     display: flex;
     justify-content: space-between;
+    font-size: 18px;
 }
 
 /* 🔷 Dashboard Cards */
 .cards {
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: 25px;
+    padding: 30px;
     flex-wrap: wrap;
 }
 
 .card {
     background: white;
-    padding: 20px;
-    width: 220px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    padding: 30px;
+    width: 250px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card h2 {
+    font-size: 32px;
+    color: #38ada9;
+}
+
+.card p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
 }
 
 /* 🔷 Section */
 .section {
-    padding: 20px;
+    padding: 30px;
+    color: white;
 }
 
-/* 🔷 Forms */
-input {
-    padding: 8px;
-    margin: 5px;
+/* 🔷 Center Forms */
+.section-content {
+    display: flex;
+    justify-content: center;
 }
 
+/* 🔷 Form Box */
+.section-box {
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* 🔷 Headings */
+.section-box h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* 🔷 Inputs */
+.section-box input,
+.section-box select,
+.section-box textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* 🔷 Button */
 button {
-    padding: 8px 15px;
-    background: #38ada9;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #38ada9, #079992);
     border: none;
     color: white;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 15px;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+/* DROPDOWN */
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    color: black;
+    border-radius: 8px;
+    width: 140px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown a:hover {
+    background: #f1f1f1;
 }
 
 </style>
@@ -104,10 +183,9 @@ button {
 
 <body>
 
-<!-- 🔷 Sidebar -->
+<!-- Sidebar -->
 <div class="sidebar">
     <h2>⚙ Admin</h2>
-
     <ul>
         <li onclick="showSection('dashboard')">Dashboard</li>
         <li onclick="showSection('doctors')">Manage Doctors</li>
@@ -116,68 +194,108 @@ button {
     </ul>
 </div>
 
-<!-- 🔷 Main -->
+<!-- Main -->
 <div class="main">
 
-    <!-- Topbar -->
     <div class="topbar">
         <h3>Admin Dashboard</h3>
-        <div>👤 Admin</div>
-    </div>
-
-    <!-- 🔷 Dashboard -->
-    <div id="dashboard" class="section">
-        <div class="cards">
-            <div class="card">Total Patients</div>
-            <div class="card">Total Doctors</div>
-            <div class="card">Appointments</div>
+        <div class="right" onclick="toggleDropdown()">
+            👤 <span>Admin</span>
+            <div class="dropdown" id="dropdownMenu">
+                
+                <a href="/">Logout</a>
+            </div>
         </div>
     </div>
 
-    <!-- 🔷 Doctors -->
+    <!-- Dashboard -->
+    <div id="dashboard" class="section">
+        <div class="cards">
+            <div class="card">
+                <h2>120</h2>
+                <p>Total Patients</p>
+            </div>
+            <div class="card">
+                <h2>45</h2>
+                <p>Total Doctors</p>
+            </div>
+            <div class="card">
+                <h2>78</h2>
+                <p>Appointments</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctors -->
     <div id="doctors" class="section" style="display:none;">
-        <h3>Manage Doctors</h3>
+        <div class="section-content">
+            <div class="section-box">
 
-        <input type="text" placeholder="Doctor Name">
-        <input type="text" placeholder="Specialization">
-        <button>Add Doctor</button>
+                <h3>Manage Doctors</h3>
 
-        <br><br>
+                <h4>Add Doctor</h4>
+                <input type="text" placeholder="Doctor Name">
+                <input type="text" placeholder="Specialization">
+                <input type="text" placeholder="Qualification">
+                <input type="text" placeholder="Experience">
+                <input type="text" placeholder="Phone">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Fee">
+                <button>Add Doctor</button>
 
-        <input type="text" placeholder="Doctor ID">
-        <button>Remove Doctor</button>
+                <h4>Remove Doctor</h4>
+                <input type="text" placeholder="Doctor ID">
+                <button>Remove Doctor</button>
+
+            </div>
+        </div>
     </div>
 
-    <!-- 🔷 Reports -->
+    <!-- Reports -->
     <div id="reports" class="section" style="display:none;">
-        <h3>Manage Reports</h3>
+        <div class="section-content">
+            <div class="section-box">
 
-        <input type="text" placeholder="Patient ID">
-        <input type="text" placeholder="Report Details">
-        <button>Add Report</button>
+                <h3>Manage Reports</h3>
 
-        <br><br>
+                <h4>Add Report</h4>
+                <input type="text" placeholder="Report ID">
+                <input type="text" placeholder="Patient ID">
 
-        <input type="text" placeholder="Report ID">
-        <button>Remove Report</button>
-    </div>
+                <select>
+                    <option>Select Report Type</option>
+                    <option>Blood Test</option>
+                    <option>X-Ray</option>
+                    <option>MRI</option>
+                </select>
 
-    <!-- 🔷 Appointments -->
-    <div id="appointments" class="section" style="display:none;">
-        <h3>Appointments</h3>
+                <input type="date">
+                <textarea placeholder="Report Details"></textarea>
 
-        <p>View and manage appointments here</p>
+                <button>Add Report</button>
+
+                <h4>Remove Report</h4>
+                <input type="text" placeholder="Report ID">
+                <button>Remove Report</button>
+
+            </div>
+        </div>
     </div>
 
 </div>
 
-<!-- 🔷 Script -->
 <script>
 function showSection(id) {
     document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
     document.getElementById(id).style.display = 'block';
 }
+
+function toggleDropdown() {
+    let menu = document.getElementById("dropdownMenu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
 </script>
+
 
 </body>
 </html>
