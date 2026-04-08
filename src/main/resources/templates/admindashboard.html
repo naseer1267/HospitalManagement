@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -252,35 +252,41 @@ button:hover {
     </div>
 
     <!-- Reports -->
-    <div id="reports" class="section" style="display:none;">
-        <div class="section-content">
-            <div class="section-box">
+	<div id="reports" class="section" style="display:none;">
+	    <div class="section-content">
+	        <div class="section-box">
+	            <h3>Manage Records</h3>
+	            
+	            <h4>Add Record</h4>
+	            <form action="/addRecord" method="post">
+	                <select name="patientId" required>
+	                    <option value="" disabled selected>Select a Patient</option>
+	                    <option th:each="patient : ${patients}" 
+	                            th:value="${patient.pid}" 
+	                            th:text="'ID: ' + ${patient.pid} + ' - ' + ${patient.firstname} + ' ' + ${patient.lastname}">
+	                    </option>
+	                </select>
+	                
+	                <select name="recordType" required>
+	                    <option value="" disabled selected>Select Record Type</option>
+	                    <option value="Blood Test">Blood Test</option>
+	                    <option value="X-Ray">X-Ray</option>
+	                    <option value="MRI">MRI</option>
+	                </select>
+	                
+	                <input type="date" name="recordDate" required>
+	                <textarea name="details" placeholder="Record Details" required></textarea>
+	                <button type="submit">Add Record</button>
+	            </form>
 
-                <h3>Manage Reports</h3>
-
-                <h4>Add Report</h4>
-                <input type="text" placeholder="Report ID">
-                <input type="text" placeholder="Patient ID">
-
-                <select>
-                    <option>Select Report Type</option>
-                    <option>Blood Test</option>
-                    <option>X-Ray</option>
-                    <option>MRI</option>
-                </select>
-
-                <input type="date">
-                <textarea placeholder="Report Details"></textarea>
-
-                <button>Add Report</button>
-
-                <h4>Remove Report</h4>
-                <input type="text" placeholder="Report ID">
-                <button>Remove Report</button>
-
-            </div>
-        </div>
-    </div>
+	            <h4>Remove Record</h4>
+	            <form action="/removeRecord" method="post">
+	                <input type="number" name="recordId" placeholder="Record ID to Remove" required>
+	                <button type="submit" style="background: #e74c3c;">Remove Record</button>
+	            </form>
+	        </div>
+	    </div>
+	</div>
 
 </div>
 

@@ -1,5 +1,7 @@
 package com.example.hospitalManagement.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class PatientService {
 	
 	public Patient findByNumber(String number) {
 	    return pr.findByNumber(number);
+	}
+	
+	public List<Patient> getAllPatients() {
+	    return pr.findAll(); // Fetches all patients from the repository
 	}
 
 }
