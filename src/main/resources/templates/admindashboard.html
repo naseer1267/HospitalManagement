@@ -1,24 +1,183 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        .navbar { background: #e74c3c; padding: 15px 20px; color: white; display: flex; justify-content: space-between;}
-        body { background: #f5f6fa; }
-        .container { padding: 50px; text-align: center; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<style>
+
+/* 🔷 Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🔷 Layout */
+body {
+    display: flex;
+}
+
+/* 🔷 Sidebar */
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: #0a3d62;
+    color: white;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.sidebar ul li:hover {
+    background: #38ada9;
+}
+
+/* 🔷 Main Content */
+.main {
+    margin-left: 230px;
+    width: 100%;
+}
+
+/* 🔷 Topbar */
+.topbar {
+    background: #38ada9;
+    padding: 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 🔷 Dashboard Cards */
+.cards {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* 🔷 Section */
+.section {
+    padding: 20px;
+}
+
+/* 🔷 Forms */
+input {
+    padding: 8px;
+    margin: 5px;
+}
+
+button {
+    padding: 8px 15px;
+    background: #38ada9;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+</style>
 </head>
+
 <body>
-    <div class="navbar">
-        <h2>🏥 HealthCare - Admin Panel</h2>
-        <a href="/" style="color: white; text-decoration: none; font-weight: bold;">Logout</a>
+
+<!-- 🔷 Sidebar -->
+<div class="sidebar">
+    <h2>⚙ Admin</h2>
+
+    <ul>
+        <li onclick="showSection('dashboard')">Dashboard</li>
+        <li onclick="showSection('doctors')">Manage Doctors</li>
+        <li onclick="showSection('reports')">Manage Reports</li>
+        <li onclick="showSection('appointments')">Appointments</li>
+    </ul>
+</div>
+
+<!-- 🔷 Main -->
+<div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <h3>Admin Dashboard</h3>
+        <div>👤 Admin</div>
     </div>
 
-    <div class="container">
-        <h1>Welcome, System Administrator</h1>
-        <p>You have successfully logged into the admin control panel.</p>
+    <!-- 🔷 Dashboard -->
+    <div id="dashboard" class="section">
+        <div class="cards">
+            <div class="card">Total Patients</div>
+            <div class="card">Total Doctors</div>
+            <div class="card">Appointments</div>
         </div>
+    </div>
+
+    <!-- 🔷 Doctors -->
+    <div id="doctors" class="section" style="display:none;">
+        <h3>Manage Doctors</h3>
+
+        <input type="text" placeholder="Doctor Name">
+        <input type="text" placeholder="Specialization">
+        <button>Add Doctor</button>
+
+        <br><br>
+
+        <input type="text" placeholder="Doctor ID">
+        <button>Remove Doctor</button>
+    </div>
+
+    <!-- 🔷 Reports -->
+    <div id="reports" class="section" style="display:none;">
+        <h3>Manage Reports</h3>
+
+        <input type="text" placeholder="Patient ID">
+        <input type="text" placeholder="Report Details">
+        <button>Add Report</button>
+
+        <br><br>
+
+        <input type="text" placeholder="Report ID">
+        <button>Remove Report</button>
+    </div>
+
+    <!-- 🔷 Appointments -->
+    <div id="appointments" class="section" style="display:none;">
+        <h3>Appointments</h3>
+
+        <p>View and manage appointments here</p>
+    </div>
+
+</div>
+
+<!-- 🔷 Script -->
+<script>
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+</script>
+
 </body>
 </html>
