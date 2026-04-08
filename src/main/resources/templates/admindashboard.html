@@ -89,6 +89,9 @@ button:hover { transform: scale(1.05); }
 </div>
 
 <div class="main">
+    <div th:if="${message}" class="alert">
+        <span th:text="${message}"></span>
+    </div>
 
     <div class="topbar">
         <h3>Admin Dashboard</h3>
@@ -117,26 +120,49 @@ button:hover { transform: scale(1.05); }
         </div>
     </div>
 
-    <div id="doctors" class="section" style="display:none;">
-        <div class="section-content">
-            <div class="section-box">
-                <h3>Manage Doctors</h3>
+
+    <!-- Doctors -->
+   <div id="doctors" class="section" style="display:none;">
+    <div class="section-content">
+        <div class="section-box">
+
+            <h3>Manage Doctors</h3>
+
+            <!-- 🔷 Add Doctor FORM -->
+            <form action="/addDoctor" method="post">
+
+
                 <h4>Add Doctor</h4>
-                <input type="text" placeholder="Doctor Name">
-                <input type="text" placeholder="Specialization">
-                <input type="text" placeholder="Qualification">
-                <input type="text" placeholder="Experience">
-                <input type="text" placeholder="Phone">
-                <input type="email" placeholder="Email">
-                <input type="text" placeholder="Fee">
-                <button>Add Doctor</button>
+
+                <input type="text" name="name" placeholder="Doctor Name" required>
+                <input type="text" name="specialization" placeholder="Specialization" required>
+                <input type="text" name="qualification" placeholder="Qualification" required>
+                <input type="number" name="experience" placeholder="Experience" required>
+                <input type="text" name="phone" placeholder="Phone" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="number" name="fee" placeholder="Fee" required>
+
+                <button type="submit">Add Doctor</button>
+
+            </form>
+
+            
+            <form action="/removeDoctor" method="post">
 
                 <h4>Remove Doctor</h4>
-                <input type="text" placeholder="Doctor ID">
-                <button>Remove Doctor</button>
-            </div>
+
+
+
+                <input type="number" name="id" placeholder="Doctor ID" required>
+
+                <button type="submit">Remove Doctor</button>
+
+            </form>
+
+
         </div>
     </div>
+</div>
 
     <div id="records" class="section" style="display:none;">
 	    <div class="section-content">
