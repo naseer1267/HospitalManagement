@@ -1,255 +1,230 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
-
-<style>
-/* 🔷 Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
-/* 🔷 Background */
-body {
-    display: flex;
-    background: linear-gradient(rgba(10,61,98,0.9), rgba(10,61,98,0.9)),
-    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80");
-    background-size: cover;
-}
-
-/* 🔷 Sidebar */
-.sidebar {
-    width: 240px; height: 100vh; background: rgba(10,61,98,0.95);
-    color: white; position: fixed; padding: 25px;
-}
-.sidebar h2 { font-size: 24px; margin-bottom: 40px; }
-.sidebar ul li {
-    padding: 12px; margin-bottom: 12px; cursor: pointer;
-    border-radius: 8px; font-size: 16px;
-}
-.sidebar ul li:hover { background: linear-gradient(135deg, #38ada9, #079992); }
-
-/* 🔷 Main */
-.main { margin-left: 240px; width: 100%; }
-
-/* 🔷 Topbar */
-.topbar {
-    background: linear-gradient(135deg, #38ada9, #079992); padding: 18px 30px;
-    color: white; display: flex; justify-content: space-between; font-size: 18px;
-}
-
-/* 🔷 Dashboard Cards */
-.cards { display: flex; gap: 25px; padding: 30px; flex-wrap: wrap; }
-.card {
-    background: white; padding: 30px; width: 250px; border-radius: 15px;
-    text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: 0.3s;
-}
-.card:hover { transform: translateY(-8px); }
-.card h2 { font-size: 32px; color: #38ada9; }
-.card p { margin-top: 10px; font-size: 16px; color: #555; }
-
-/* 🔷 Section */
-.section { padding: 30px; color: white; }
-.section-content { display: flex; justify-content: center; }
-.section-box {
-    background: rgba(255,255,255,0.95); color: #333; padding: 30px;
-    border-radius: 15px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-.section-box h4 { margin-top: 20px; margin-bottom: 10px; font-size: 18px; }
-.section-box input, .section-box select, .section-box textarea {
-    width: 100%; padding: 10px; margin-bottom: 12px;
-    border-radius: 8px; border: 1px solid #ccc;
-}
-button {
-    width: 100%; padding: 12px; background: linear-gradient(135deg, #38ada9, #079992);
-    border: none; color: white; border-radius: 8px; cursor: pointer; font-size: 15px;
-}
-button:hover { transform: scale(1.05); }
-
-/* DROPDOWN */
-.dropdown {
-    display: none; position: absolute; right: 0; top: 40px; background: white;
-    color: black; border-radius: 8px; width: 140px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-.dropdown a { display: block; padding: 10px; text-decoration: none; color: black; }
-.dropdown a:hover { background: #f1f1f1; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* 🔷 Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        /* 🔷 Background */
+        body {
+            display: flex;
+            background: linear-gradient(rgba(10,61,98,0.9), rgba(10,61,98,0.9)),
+                        url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+        }
+        /* 🔷 Sidebar */
+        .sidebar {
+            width: 240px; height: 100vh; background: rgba(10,61,98,0.95);
+            color: white; position: fixed; padding: 25px;
+        }
+        .sidebar h2 { font-size: 24px; margin-bottom: 40px; }
+        .sidebar ul li {
+            padding: 12px; margin-bottom: 12px; cursor: pointer;
+            border-radius: 8px; font-size: 16px;
+        }
+        .sidebar ul li:hover { background: linear-gradient(135deg, #38ada9, #079992); }
+        /* 🔷 Main */
+        .main { margin-left: 240px; width: 100%; }
+        /* 🔷 Topbar */
+        .topbar {
+            background: linear-gradient(135deg, #38ada9, #079992); padding: 18px 30px;
+            color: white; display: flex; justify-content: space-between; font-size: 18px;
+        }
+        /* 🔷 Dashboard Cards */
+        .cards { display: flex; gap: 25px; padding: 30px; flex-wrap: wrap; }
+        .card {
+            background: white; padding: 30px; width: 250px; border-radius: 15px;
+            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-8px); }
+        .card h2 { font-size: 32px; color: #38ada9; }
+        .card p { margin-top: 10px; font-size: 16px; color: #555; }
+        /* 🔷 Section */
+        .section { padding: 30px; color: white; }
+        .section-content { display: flex; justify-content: center; }
+        .section-box {
+            background: rgba(255,255,255,0.95); color: #333; padding: 30px;
+            border-radius: 15px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .section-box h4 { margin-top: 20px; margin-bottom: 10px; font-size: 18px; }
+        .section-box input, .section-box select, .section-box textarea {
+            width: 100%; padding: 10px; margin-bottom: 12px;
+            border-radius: 8px; border: 1px solid #ccc;
+        }
+        button {
+            width: 100%; padding: 12px; background: linear-gradient(135deg, #38ada9, #079992);
+            border: none; color: white; border-radius: 8px; cursor: pointer; font-size: 15px;
+        }
+        button:hover { transform: scale(1.05); }
+        /* DROPDOWN */
+        .dropdown {
+            display: none; position: absolute; right: 0; top: 40px; background: white;
+            color: black; border-radius: 8px; width: 140px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .dropdown a { display: block; padding: 10px; text-decoration: none; color: black; }
+        .dropdown a:hover { background: #f1f1f1; }
+    </style>
 </head>
-
 <body>
 
-<div class="sidebar">
-    <h2>⚙ Admin</h2>
-    <ul>
-        <li onclick="showSection('dashboard')">Dashboard</li>
-        <li onclick="showSection('doctors')">Manage Doctors</li>
-        <li onclick="showSection('records')">Manage Records</li>
-        <li onclick="showSection('appointments')">Appointments</li>
-    </ul>
-</div>
-
-<div class="main">
-    <div th:if="${message}" class="alert">
-        <span th:text="${message}"></span>
+    <div class="sidebar">
+        <h2>⚙ Admin</h2>
+        <ul>
+            <li onclick="showSection('dashboard')">Dashboard</li>
+            <li onclick="showSection('doctors')">Manage Doctors</li>
+            <li onclick="showSection('records')">Manage Records</li>
+            <li onclick="showSection('appointments')">Appointments</li>
+        </ul>
     </div>
 
-    <div class="topbar">
-        <h3>Admin Dashboard</h3>
-        <div class="right" onclick="toggleDropdown()">
-            👤 <span>Admin</span>
-            <div class="dropdown" id="dropdownMenu">
-                <a href="/">Logout</a>
+    <div class="main">
+        <div th:if="${message}" class="alert" style="background: #27ae60; color: white; padding: 10px; text-align: center;">
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="topbar">
+            <h3>Admin Dashboard</h3>
+            <div class="right" onclick="toggleDropdown()" style="cursor: pointer; position: relative;">
+                👤 <span>Admin</span>
+                <div class="dropdown" id="dropdownMenu">
+                    <a href="/">Logout</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="dashboard" class="section">
-        <div class="cards">
-            <div class="card">
-                <h2>120</h2>
-                <p>Total Patients</p>
-            </div>
-            <div class="card">
-                <h2>45</h2>
-                <p>Total Doctors</p>
-            </div>
-            <div class="card">
-                <h2>78</h2>
-                <p>Appointments</p>
+        <div id="dashboard" class="section">
+            <div class="cards">
+                <div class="card">
+                    <h2 th:text="${totalPatients}">0</h2>
+                    <p>Total Patients</p>
+                </div>
+                <div class="card">
+                    <h2 th:text="${totalDoctors}">0</h2>
+                    <p>Total Doctors</p>
+                </div>
+                <div class="card">
+                    <h2 th:text="${totalRecords}">0</h2>
+                    <p>Total Records</p>
+                </div>
             </div>
         </div>
-    </div>
 
+        <div id="doctors" class="section" style="display:none;">
+            <div class="section-content">
+                <div class="section-box">
+                    <h3>Manage Doctors</h3>
+                    
+                    <form action="/addDoctor" method="post">
+                        <h4>Add Doctor</h4>
+                        <input type="text" name="name" placeholder="Doctor Name" required>
+                        <input type="text" name="specialization" placeholder="Specialization" required>
+                        <input type="text" name="qualification" placeholder="Qualification" required>
+                        <input type="number" name="experience" placeholder="Experience" required>
+                        <input type="text" name="phone" placeholder="Phone" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="number" name="fee" placeholder="Fee" required>
+                        <button type="submit">Add Doctor</button>
+                    </form>
 
-    <!-- Doctors -->
-   <div id="doctors" class="section" style="display:none;">
-    <div class="section-content">
-        <div class="section-box">
-
-            <h3>Manage Doctors</h3>
-
-            <!-- 🔷 Add Doctor FORM -->
-            <form action="/addDoctor" method="post">
-
-
-                <h4>Add Doctor</h4>
-
-                <input type="text" name="name" placeholder="Doctor Name" required>
-                <input type="text" name="specialization" placeholder="Specialization" required>
-                <input type="text" name="qualification" placeholder="Qualification" required>
-                <input type="number" name="experience" placeholder="Experience" required>
-                <input type="text" name="phone" placeholder="Phone" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="number" name="fee" placeholder="Fee" required>
-
-                <button type="submit">Add Doctor</button>
-
-            </form>
-
-            
-            <form action="/removeDoctor" method="post">
-
-                <h4>Remove Doctor</h4>
-
-
-
-                <input type="number" name="id" placeholder="Doctor ID" required>
-
-                <button type="submit">Remove Doctor</button>
-
-            </form>
-
-
+                    <form action="/removeDoctor" method="post">
+                        <h4>Remove Doctor</h4>
+                        <input type="number" name="id" placeholder="Doctor ID" required>
+                        <button type="submit" style="background: #e74c3c;">Remove Doctor</button>
+                    </form>
+                </div>
+            </div>
         </div>
+
+        <div id="records" class="section" style="display:none;">
+            <div class="section-content">
+                <div class="section-box">
+                    <div th:if="${successMessage != null}" id="success-message-box" style="text-align: center; padding-bottom: 20px;">
+                        <h2 th:text="${successMessage}" style="color: #27ae60; margin-bottom: 20px;"></h2>
+                        <button type="button" onclick="document.getElementById('success-message-box').style.display='none'; document.getElementById('form-container').style.display='block';" style="width: auto; padding: 10px 20px;">
+                            🔙 Back to Manage Records
+                        </button>
+                    </div>
+
+                    <div id="form-container" th:style="${successMessage != null ? 'display:none;' : 'display:block;'}">
+                        <h3>Manage Records</h3>
+
+                        <h4>Add Record</h4>
+                        <form action="/addRecord" method="post">
+                            <select name="patientId" required>
+                                <option value="" disabled selected>Select a Patient</option>
+                                <option th:each="patient : ${patients}" 
+                                        th:value="${patient.pid}" 
+                                        th:text="'ID: ' + ${patient.pid} + ' - ' + ${patient.firstname} + ' ' + ${patient.lastname}">
+                                </option>
+                            </select>
+
+                            <select name="recordType" required>
+                                <option value="" disabled selected>Select Record Type</option>
+                                <option value="Blood Test">Blood Test</option>
+                                <option value="X-Ray">X-Ray</option>
+                                <option value="MRI">MRI</option>
+                            </select>
+
+                            <input type="date" name="recordDate" required>
+                            <textarea name="details" placeholder="Record Details" required></textarea>
+                            <button type="submit">Add Record</button>
+                        </form>
+
+                        <h4>Remove Record</h4>
+                        <form action="/removeRecord" method="post">
+                            <input type="number" name="recordId" placeholder="Record ID to Remove" required>
+                            <button type="submit" style="background: #e74c3c;">Remove Record</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="appointments" class="section" style="display:none;">
+            <div class="section-content">
+                <div class="section-box">
+                    <h3>Manage Appointments</h3>
+                    <p style="margin-top: 15px; color: #555;">The appointment booking system will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
 
-    <div id="records" class="section" style="display:none;">
-	    <div class="section-content">
-	        <div class="section-box">
-	            
-                <div th:if="${successMessage != null}" id="success-message-box" style="text-align: center; padding-bottom: 20px;">
-	                <h2 th:text="${successMessage}" style="color: #27ae60; margin-bottom: 20px;"></h2>
-	                
-	                <button type="button" onclick="document.getElementById('success-message-box').style.display='none'; document.getElementById('form-container').style.display='block';" style="width: auto; padding: 10px 20px;">
-	                    🔙 Back to Manage Records
-	                </button>
-	            </div>
+    <input type="hidden" id="serverActiveTab" th:value="${activeTab != null ? activeTab : 'dashboard'}">
 
-                <div id="form-container" th:style="${successMessage != null ? 'display:none;' : 'display:block;'}">
-	                <h3>Manage Records</h3>
-	                
-	                <h4>Add Record</h4>
-	                <form action="/addRecord" method="post">
-	                    <select name="patientId" required>
-	                        <option value="" disabled selected>Select a Patient</option>
-	                        <option th:each="patient : ${patients}" 
-	                                th:value="${patient.pid}" 
-	                                th:text="'ID: ' + ${patient.pid} + ' - ' + ${patient.firstname} + ' ' + ${patient.lastname}">
-	                        </option>
-	                    </select>
-	                    
-	                    <select name="recordType" required>
-	                        <option value="" disabled selected>Select Record Type</option>
-	                        <option value="Blood Test">Blood Test</option>
-	                        <option value="X-Ray">X-Ray</option>
-	                        <option value="MRI">MRI</option>
-	                    </select>
-	                    
-	                    <input type="date" name="recordDate" required>
-	                    <textarea name="details" placeholder="Record Details" required></textarea>
-	                    <button type="submit">Add Record</button>
-	                </form>
+    <script>
+        window.onload = function() {
+            // Read the value from the hidden input safely
+            var activeTab = document.getElementById("serverActiveTab").value;
+            showSection(activeTab);
+        };
 
-	                <h4>Remove Record</h4>
-	                <form action="/removeRecord" method="post">
-	                    <input type="number" name="recordId" placeholder="Record ID to Remove" required>
-	                    <button type="submit" style="background: #e74c3c;">Remove Record</button>
-	                </form>
-	            </div>
+        function showSection(id) {
+            // Hide all sections first
+            var sections = document.querySelectorAll('.section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].style.display = 'none';
+            }
 
-	        </div>
-	    </div>
-	</div>
-
-</div>
-
-<<script th:inline="javascript">
-    // 1. Let Thymeleaf handle the quotes automatically!
-    var activeTab = [[${activeTab}]];
-    
-    // 2. If there is no bookmark (like on a fresh login), default to the dashboard
-    if (activeTab === null || activeTab === undefined) {
-        activeTab = 'dashboard';
-    }
-
-    // 3. Automatically open the correct section when the page loads
-    window.onload = function() {
-        showSection(activeTab);
-    };
-
-    // 4. Safely switch between sections
-    function showSection(id) {
-        // Hide all sections first
-        document.querySelectorAll('.section').forEach(sec => {
-            sec.style.display = 'none';
-        });
-        
-        // Find the requested section and display it
-        let selectedSection = document.getElementById(id);
-        if (selectedSection) {
-            selectedSection.style.display = 'block';
-        } else {
-            console.error("Could not find section with ID: " + id);
+            // Show the selected section
+            var selectedSection = document.getElementById(id);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
         }
-    }
 
-    // 5. Toggle the profile dropdown
-    function toggleDropdown() {
-        let menu = document.getElementById("dropdownMenu");
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-</script>
+        function toggleDropdown() {
+            var menu = document.getElementById("dropdownMenu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+    </script>
 
 </body>
 </html>

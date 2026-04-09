@@ -25,5 +25,9 @@ public class PatientService {
 	public List<Patient> getAllPatients() {
 	    return pr.findAll(); // Fetches all patients from the repository
 	}
-
+	
+	public long countPatients() {
+	    return pr.count(); // Automatically counts rows in the Patient table
+	}
+ 
 }

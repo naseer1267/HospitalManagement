@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Reports</title>
+    <style>
+        body {
+            margin: 0; font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(rgba(10,61,98,0.85), rgba(10,61,98,0.85)),
+                        url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3");
+            background-size: cover; min-height: 100vh;
+        }
+        .navbar {
+            display: flex; align-items: center; justify-content: center; position: relative;
+            background: rgba(10, 61, 98, 0.9); padding: 18px 20px; color: white;
+        }
+        .back-icon {
+            position: absolute; left: 20px; font-size: 22px; color: white;
+            text-decoration: none; transition: 0.3s;
+        }
+        .back-icon:hover { transform: scale(1.2); }
+        .navbar h2 { font-size: 22px; font-weight: bold; margin: 0; }
+        
+        .container { padding: 40px; }
+        .record-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+        
+        .record-card {
+            background: rgba(255,255,255,0.95); width: 300px; padding: 25px;
+            border-radius: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: 0.3s; cursor: pointer; text-decoration: none; color: black; display: block;
+        }
+        .record-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .record-card h3 { color: #38ada9; margin-bottom: 10px; }
+        .record-card p { margin: 8px 0; color: #555; font-weight: bold; }
+        .empty-msg { color: white; text-align: center; font-size: 18px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/displayDashboard" class="back-icon">⬅ Back</a>
+        <h2>📋 My Medical Reports</h2>
+    </div>
+
+    <div class="container">
+        <div th:if="${#lists.isEmpty(records)}" class="empty-msg">
+            <p>No medical records found. If you recently had a test, please wait for the Admin to upload it.</p>
+        </div>
+
+        <div class="record-grid">
+            <a th:each="rec : ${records}" th:href="@{/reportDetails(recordId=${rec.recordId})}" class="record-card">
+                <h3 th:text="${rec.recordType}"></h3>
+                <p>Date: <span th:text="${rec.recordDate}"></span></p>
+                <p style="color: #0a3d62; font-size: 14px; margin-top: 15px;">Click to view full details 👉</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

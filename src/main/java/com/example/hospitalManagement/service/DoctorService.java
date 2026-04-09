@@ -27,5 +27,9 @@ public class DoctorService {
     public List<Doctor> getAllDoctors() {
         return dr.findAll();
     }
+    
+    public long countDoctors() {
+        return dr.count(); // Automatically counts rows in the Doctor table
+    }
 
 }

@@ -10,12 +10,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.hospitalManagement.model.Patient;
 import com.example.hospitalManagement.service.PatientService;
 import jakarta.servlet.http.HttpSession;
+import com.example.hospitalManagement.service.RecordService;
+import com.example.hospitalManagement.model.MedicalRecord;
+import java.util.List;
 
 @Controller
 public class PatientTestcontrol {
     
     @Autowired
     PatientService ps;
+    
+    @Autowired
+    RecordService recordService;
 
     @GetMapping("/")
     public String home() {
@@ -71,5 +77,34 @@ public class PatientTestcontrol {
         Patient patient = (Patient) session.getAttribute("patient");
         model.addAttribute("patient", patient);
         return "myprofile.html";
+    }
+ // 1. Shows the list of existing records
+    @GetMapping("/reports")
+    public String viewReports(Model model, HttpSession session) {
+        Patient patient = (Patient) session.getAttribute("patient");
+        if (patient == null) {
+            return "redirect:/login"; // Security check
+        }
+        
+        // Fetch records using the patient's ID
+        List<MedicalRecord> records = recordService.getRecordsByPatientId(patient.getPid());
+        model.addAttribute("records", records);
+        
+        return "reports.html";
+    }
+
+    // 2. Shows the full details of a specific record when clicked
+    @GetMapping("/reportDetails")
+    public String viewReportDetails(@RequestParam int recordId, Model model, HttpSession session) {
+        Patient patient = (Patient) session.getAttribute("patient");
+        if (patient == null) {
+            return "redirect:/login"; // Security check
+        }
+
+        // Fetch the single record
+        MedicalRecord record = recordService.getRecordById(recordId);
+        model.addAttribute("record", record);
+        
+        return "reportDetails.html";
     }
 }
