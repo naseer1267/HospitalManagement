@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Doctors</title>
+
+<style>
+
+/* 🔷 Same Theme */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(rgba(10,61,98,0.85), rgba(10,61,98,0.85)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3");
+    background-size: cover;
+}
+
+/* 🔷 Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* center title */
+    position: relative;       /* for arrow positioning */
+    
+    background: rgba(10, 61, 98, 0.9);
+    padding: 18px 20px;
+    color: white;
+}
+
+/* 🔷 Back Arrow */
+.back-icon {
+    position: absolute;
+    left: 20px;
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.back-icon:hover {
+    transform: scale(1.2);
+}
+
+/* 🔷 Title */
+.navbar h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* 🔷 Container */
+.container {
+    padding: 30px;
+}
+
+/* 🔷 Grid */
+.doctor-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* 🔷 Card */
+.doctor-card {
+    background: rgba(255,255,255,0.95);
+    width: 280px;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.doctor-card:hover {
+    transform: translateY(-10px);
+}
+
+.doctor-card h3 {
+    color: #0a3d62;
+}
+
+.doctor-card p {
+    margin: 6px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔷 Navbar -->
+<div class="navbar">
+    <a href="/displayDashboard" class="back-icon">⬅</a>
+    <h2>👨‍⚕️ Doctors List</h2>
+</div>
+
+<!-- 🔷 Doctors -->
+<div class="container">
+
+    <div class="doctor-grid">
+
+        <!-- 🔥 LOOP -->
+        <div class="doctor-card" th:each="doc : ${doctors}">
+
+            <h3 th:text="${doc.name}"></h3>
+
+            <p><b>Specialization:</b> <span th:text="${doc.specialization}"></span></p>
+            <p><b>Experience:</b> <span th:text="${doc.experience}"></span> years</p>
+            <p><b>Phone:</b> <span th:text="${doc.phone}"></span></p>
+            <p><b>Email:</b> <span th:text="${doc.email}"></span></p>
+            <p><b>Fee:</b> ₹<span th:text="${doc.fee}"></span></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

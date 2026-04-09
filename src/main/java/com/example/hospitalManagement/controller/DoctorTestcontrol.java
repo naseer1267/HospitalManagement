@@ -1,9 +1,20 @@
 package com.example.hospitalManagement.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.hospitalManagement.model.Doctor;
+import com.example.hospitalManagement.model.Patient;
+import com.example.hospitalManagement.repository.DoctorRepository;
+
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.hospitalManagement.model.Doctor;
 import com.example.hospitalManagement.service.DoctorService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class DoctorTestcontrol {
@@ -46,7 +59,7 @@ public class DoctorTestcontrol {
 	    // 🔥 Correct usage
 	    redirectAttributes.addFlashAttribute("message", "Doctor Saved Successfully!");
 
-	    return "redirect:/admindashboard"; // 🔥 VERY IMPORTANT
+	    return "admindashboard.html"; // 🔥 VERY IMPORTANT
 	}
     
     @PostMapping("/removeDoctor")
@@ -57,8 +70,32 @@ public class DoctorTestcontrol {
 
         redirectAttributes.addFlashAttribute("message", "Doctor Removed!");
 
-        return "redirect:/admin";
+        return "admindashboard.html";
     }
-	
+    
+    @GetMapping("/doctors")
+    public String getDoctors(Model model) {
+
+        List<Doctor> doctors = ds.getAllDoctors(); 
+
+        model.addAttribute("doctors", doctors);
+
+        return "doctorDisplay.html"; 
+    }
+    
+    @GetMapping("/displayDashboard")
+    public String dashboard(Model model, HttpSession session) {
+
+        Patient patient = (Patient) session.getAttribute("patient");
+
+        if (patient == null) {
+            return "login"; 
+        }
+
+        model.addAttribute("patient", patient);
+
+        return "patientdashboard.html"; 
+    }
+
 
 }

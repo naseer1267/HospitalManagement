@@ -1,5 +1,7 @@
 package com.example.hospitalManagement.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class DoctorService {
         } else {
             throw new RuntimeException("Doctor not found with ID: " + id);
         }
+    }
+    public List<Doctor> getAllDoctors() {
+        return dr.findAll();
     }
 
 }
