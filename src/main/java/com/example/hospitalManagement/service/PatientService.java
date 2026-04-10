@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.hospitalManagement.model.Patient;
-import com.example.hospitalManagement.repository.PatientRespository;
+import com.example.hospitalManagement.repository.PatientRepository;
 
 @Service
 public class PatientService {
 	@Autowired
-	PatientRespository pr;
+	PatientRepository pr;
 	
 	public void insert(Patient p) {
 		pr.save(p);

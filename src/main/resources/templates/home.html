@@ -301,10 +301,17 @@
 <!-- 🔷 Contact -->
 <section class="section contact">
     <h2>Contact Us</h2>
-    <input type="text" placeholder="Your Name"><br>
-    <input type="email" placeholder="Your Email"><br>
-    <textarea placeholder="Your Message"></textarea><br>
-    <button>Send Message</button>
+    
+    <div th:if="${success}" style="color: #27ae60; margin-bottom: 20px; font-weight: bold;">
+        <p th:text="${success}"></p>
+    </div>
+
+    <form action="/submitContact" method="post">
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <input type="email" name="email" placeholder="Your Email" required><br>
+        <textarea name="message" placeholder="Your Message" required></textarea><br>
+        <button type="submit">Send Message</button>
+    </form>
 </section>
 
 <!-- 🔷 Footer -->
