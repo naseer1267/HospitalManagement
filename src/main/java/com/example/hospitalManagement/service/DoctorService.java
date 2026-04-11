@@ -28,8 +28,14 @@ public class DoctorService {
         return dr.findAll();
     }
     
+    public Doctor getDoctorById(int id) {
+        return dr.findById(id);
+    }
+    
+    
+    
     public long countDoctors() {
-        return dr.count(); // Automatically counts rows in the Doctor table
+        return dr.count();
     }
 
 }

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Book Appointment</title>
+
+<style>
+
+/* 🔷 Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🔷 Background */
+body {
+    background: linear-gradient(rgba(10,61,98,0.85), rgba(10,61,98,0.85)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3");
+    background-size: cover;
+}
+
+/* 🔷 Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(10,61,98,0.9);
+    padding: 18px;
+    color: white;
+}
+
+.back-icon {
+    position: absolute;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+/* 🔷 Layout */
+.container {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+}
+
+/* 🔷 Left Form */
+.form-box {
+    flex: 1;
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    color: #0a3d62;
+}
+
+.form-box input,
+.form-box select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.form-box button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #38ada9, #079992);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 🔷 Right Doctors List */
+.doctor-list {
+    width: 350px;
+    background: rgba(255,255,255,0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.doctor-list h3 {
+    margin-bottom: 15px;
+    color: #0a3d62;
+}
+
+/* 🔷 Doctor Card */
+.doctor-card {
+    background: #f5f6fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.doctor-card:hover {
+    transform: scale(1.03);
+}
+
+.doctor-card h4 {
+    margin-bottom: 5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔷 Navbar -->
+<div class="navbar">
+    <a href="/dashboard" class="back-icon">⬅</a>
+    <h2>📅 Book Appointment</h2>
+</div>
+
+<!-- 🔷 Layout -->
+<div class="container">
+
+    <!-- 🔷 Appointment Form -->
+    <div class="form-box">
+
+        <h2>Book Appointment</h2>
+
+        <form action="/bookAppointment" method="post">
+
+            <input type="text" name="patientName" placeholder="Your Name" required>
+
+            <select name="doctorId" required>
+                <option value="">Select Doctor</option>
+                <option th:each="doc : ${doctors}"
+                        th:value="${doc.id}"
+                        th:text="${doc.name}">
+                </option>
+            </select>
+
+            <input type="date" name="date" required>
+            <input type="time" name="time" required>
+
+            <button type="submit">Book Appointment</button>
+
+        </form>
+
+    </div>
+
+    <!-- 🔷 Doctors List -->
+    <div class="doctor-list">
+
+        <h3>👨‍⚕️ Available Doctors</h3>
+
+        <div th:each="doc : ${doctors}" class="doctor-card">
+
+            <h4 th:text="${doc.name}"></h4>
+            <p><b>Specialization:</b> <span th:text="${doc.specialization}"></span></p>
+            <p><b>Fee:</b> ₹<span th:text="${doc.fee}"></span></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

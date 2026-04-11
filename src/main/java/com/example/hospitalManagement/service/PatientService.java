@@ -18,16 +18,16 @@ public class PatientService {
 		
 	}
 	
-	public Patient findByNumber(String number) {
+	public Patient findByNumber(long number) {
 	    return pr.findByNumber(number);
 	}
 	
 	public List<Patient> getAllPatients() {
-	    return pr.findAll(); // Fetches all patients from the repository
+	    return pr.findAll(); 
 	}
 	
 	public long countPatients() {
-	    return pr.count(); // Automatically counts rows in the Patient table
+	    return pr.count(); 
 	}
  
 }

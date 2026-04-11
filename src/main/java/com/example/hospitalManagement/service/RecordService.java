@@ -20,20 +20,20 @@ public class RecordService {
         recordRepo.deleteById(recordId);
     }
 
-    // --- ADD THESE TWO NEW METHODS ---
+   
 
-    // Fetches all records for the logged-in patient
+   
     public List<MedicalRecord> getRecordsByPatientId(int patientId) {
         return recordRepo.findByPatientId(patientId);
     }
 
-    // Fetches a single record to show the full details
+    
     public MedicalRecord getRecordById(int recordId) {
         return recordRepo.findById(recordId).orElse(null);
     }
     
     public long countRecords() {
-        return recordRepo.count(); // Automatically counts rows in the Record table
+        return recordRepo.count(); 
     }
     
 }

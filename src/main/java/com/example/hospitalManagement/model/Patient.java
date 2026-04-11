@@ -1,7 +1,10 @@
 package com.example.hospitalManagement.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -12,6 +15,8 @@ public class Patient {
 	String	 number;
 	String email;
 	private String password;
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;
 	public String getPassword() {
 		return password;
 	}

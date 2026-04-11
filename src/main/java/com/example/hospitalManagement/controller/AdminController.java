@@ -28,7 +28,7 @@ public class AdminController {
     @Autowired
     DoctorService doctorService;
     
-    // Helper method to load all stats
+    
     private void loadDashboardStats(Model model) {
         model.addAttribute("totalPatients", patientService.countPatients());
         model.addAttribute("totalDoctors", doctorService.countDoctors());
@@ -42,12 +42,12 @@ public class AdminController {
     
     @GetMapping("/adminDashboard")
     public String loadAdminDashboard(Model model, HttpSession session) {
-        // Security check
+       
         if (session.getAttribute("admin") == null) {
             return "redirect:/admin";
         }
         
-        // 🔹 Much cleaner! Fetch patients and use the helper method for the stats
+       
         model.addAttribute("patients", patientService.getAllPatients());
         loadDashboardStats(model);
         

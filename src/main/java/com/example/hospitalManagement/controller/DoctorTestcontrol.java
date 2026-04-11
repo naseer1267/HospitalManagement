@@ -47,11 +47,11 @@ public class DoctorTestcontrol {
         
         ds.insert(doctor);
         
-        // 🔹 Attach the success message and tell the dashboard to open the "doctors" tab
+       
         redirectAttributes.addFlashAttribute("message", "Doctor Saved Successfully!");
         redirectAttributes.addFlashAttribute("activeTab", "doctors");
         
-        // 🔹 Redirect to our central hub!
+        
         return "redirect:/adminDashboard"; 
     }
 
@@ -59,11 +59,11 @@ public class DoctorTestcontrol {
     public String removeDoctor(@RequestParam int id, RedirectAttributes redirectAttributes) {
         ds.deleteById(id);
         
-        // 🔹 Attach the message and tell the dashboard to open the "doctors" tab
+       
         redirectAttributes.addFlashAttribute("message", "Doctor Removed!");
         redirectAttributes.addFlashAttribute("activeTab", "doctors");
         
-        // 🔹 Redirect to our central hub!
+        
         return "redirect:/adminDashboard";
     }
 
@@ -78,7 +78,6 @@ public class DoctorTestcontrol {
     public String dashboard(Model model, HttpSession session) {
         Patient patient = (Patient) session.getAttribute("patient");
         if (patient == null) {
-            return "redirect:/login"; // It is best practice to redirect to login if the session is null
         }
         model.addAttribute("patient", patient);
         return "patientdashboard.html";

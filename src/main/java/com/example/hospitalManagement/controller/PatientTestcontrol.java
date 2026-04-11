@@ -60,15 +60,15 @@ public class PatientTestcontrol {
     }
 
     @PostMapping("/loginPatient")
-    public String loginPatient(@RequestParam String number,
+    public String loginPatient(@RequestParam long number,
                                @RequestParam String password, Model model, HttpSession session) {
         Patient patient = ps.findByNumber(number);
         if (patient != null && patient.getPassword().equals(password)) {
             model.addAttribute("patient", patient);
             session.setAttribute("patient", patient);
-            return "patientdashboard.html"; // login success
+            return "patientdashboard.html"; 
         } else {
-            return "login.html"; // login failed
+            return "login.html"; 
         }
     }
 
@@ -78,33 +78,38 @@ public class PatientTestcontrol {
         model.addAttribute("patient", patient);
         return "myprofile.html";
     }
- // 1. Shows the list of existing records
+ 
     @GetMapping("/reports")
     public String viewReports(Model model, HttpSession session) {
         Patient patient = (Patient) session.getAttribute("patient");
         if (patient == null) {
-            return "redirect:/login"; // Security check
+            return "redirect:/login";
         }
         
-        // Fetch records using the patient's ID
+       
         List<MedicalRecord> records = recordService.getRecordsByPatientId(patient.getPid());
         model.addAttribute("records", records);
         
         return "reports.html";
     }
 
-    // 2. Shows the full details of a specific record when clicked
+  
     @GetMapping("/reportDetails")
     public String viewReportDetails(@RequestParam int recordId, Model model, HttpSession session) {
         Patient patient = (Patient) session.getAttribute("patient");
         if (patient == null) {
-            return "redirect:/login"; // Security check
+            return "redirect:/login"; 
         }
 
-        // Fetch the single record
+      
         MedicalRecord record = recordService.getRecordById(recordId);
         model.addAttribute("record", record);
         
         return "reportDetails.html";
+    }
+    
+    @GetMapping("/appointments")
+    public String appointment() {
+    	return "appointment.html";
     }
 }

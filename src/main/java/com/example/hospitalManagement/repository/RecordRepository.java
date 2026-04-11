@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface RecordRepository extends JpaRepository<MedicalRecord, Integer> {
-    // Add this line to fetch records belonging to a specific patient
+   
     List<MedicalRecord> findByPatientId(int patientId);
 }

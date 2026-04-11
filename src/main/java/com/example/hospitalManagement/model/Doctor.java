@@ -1,7 +1,10 @@
 package com.example.hospitalManagement.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Doctor {
@@ -14,6 +17,8 @@ public class Doctor {
      String phone;
      String email;
      double fee;
+     @OneToMany(mappedBy = "doctor")
+     private List<Appointment> appointments;
      public Doctor() {
 		super();
 		// TODO Auto-generated constructor stub
