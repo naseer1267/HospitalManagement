@@ -13,6 +13,9 @@ import jakarta.servlet.http.HttpSession;
 import com.example.hospitalManagement.service.RecordService;
 import com.example.hospitalManagement.model.MedicalRecord;
 import java.util.List;
+import com.example.hospitalManagement.model.ContactMessage;
+import com.example.hospitalManagement.service.ContactService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PatientTestcontrol {
@@ -22,6 +25,9 @@ public class PatientTestcontrol {
     
     @Autowired
     RecordService recordService;
+    
+    @Autowired
+    ContactService contactService;
 
     @GetMapping("/")
     public String home() {
@@ -108,8 +114,25 @@ public class PatientTestcontrol {
         return "reportDetails.html";
     }
     
+
     @GetMapping("/appointments")
     public String appointment() {
     	return "appointment.html";
+    }
+
+    @PostMapping("/submitContact")
+    public String submitContact(@RequestParam String name, 
+                                @RequestParam String email, 
+                                @RequestParam String message, 
+                                RedirectAttributes redirectAttributes) {
+        
+        ContactMessage msg = new ContactMessage(name, email, message);
+        contactService.saveMessage(msg);
+        
+        // Add a success message to show on the home page
+        redirectAttributes.addFlashAttribute("success", "Thank you! Your message has been sent.");
+        
+        return "redirect:/"; // Redirect back to home
+
     }
 }

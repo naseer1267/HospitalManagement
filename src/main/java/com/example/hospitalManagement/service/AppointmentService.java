@@ -1,5 +1,6 @@
 package com.example.hospitalManagement.service;
 
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -11,7 +12,8 @@ import com.example.hospitalManagement.model.Doctor;
 import com.example.hospitalManagement.model.Patient;
 import com.example.hospitalManagement.repository.AppointmentRepository;
 import com.example.hospitalManagement.repository.DoctorRepository;
-import com.example.hospitalManagement.repository.PatientRespository;
+import com.example.hospitalManagement.repository.PatientRepository;
+
 
 @Service
 public class AppointmentService {
@@ -19,7 +21,7 @@ public class AppointmentService {
 	@Autowired
 	AppointmentRepository ar;
 	@Autowired
-	PatientRespository pr;
+	PatientRepository pr;
 	@Autowired
 	DoctorRepository dr;
 	
