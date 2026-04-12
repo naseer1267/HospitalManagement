@@ -33,7 +33,7 @@ public class AdminController {
         model.addAttribute("totalPatients", patientService.countPatients());
         model.addAttribute("totalDoctors", doctorService.countDoctors());
         model.addAttribute("totalRecords", recordService.countRecords());
-    }
+    }                                                        
 
     @GetMapping("/admin")
     public String adminLogin() {
@@ -46,7 +46,7 @@ public class AdminController {
         if (session.getAttribute("admin") == null) {
             return "redirect:/admin";
         }
-        
+       
        
         model.addAttribute("patients", patientService.getAllPatients());
         loadDashboardStats(model);
@@ -54,7 +54,7 @@ public class AdminController {
         return "admindashboard.html";
     }
 
-    @PostMapping("/loginAdmin")
+    @PostMapping("/loginAdmin") 
     public String loginAdmin(@RequestParam String number, 
                              @RequestParam String password, 
                              RedirectAttributes redirectAttributes, 
@@ -77,20 +77,15 @@ public class AdminController {
             @RequestParam int patientId, @RequestParam String recordType,
             @RequestParam LocalDate recordDate, @RequestParam String details,
             RedirectAttributes redirectAttributes, HttpSession session) {
-        
         if (session.getAttribute("admin") == null) return "redirect:/admin";
-        
         MedicalRecord record = new MedicalRecord();
         record.setPatientId(patientId);
         record.setRecordType(recordType);
         record.setRecordDate(recordDate);
         record.setDetails(details);
-
         recordService.saveRecord(record);
-
         redirectAttributes.addFlashAttribute("successMessage", "✅ Record Added Successfully!");
         redirectAttributes.addFlashAttribute("activeTab", "records");
-
         return "redirect:/adminDashboard";
     }
 

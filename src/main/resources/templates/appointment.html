@@ -120,7 +120,7 @@ body {
 
 <!-- 🔷 Navbar -->
 <div class="navbar">
-    <a href="/dashboard" class="back-icon">⬅</a>
+    <a href="javascript:history.back()"  class="back-icon">⬅</a>
     <h2>📅 Book Appointment</h2>
 </div>
 
@@ -134,7 +134,7 @@ body {
 
         <form action="/bookAppointment" method="post">
 
-            <input type="text" name="patientName" placeholder="Your Name" required>
+           <p><b>Patient:</b><span th:text="${patient.firstname + ' ' + patient.lastname}"></span></p>
 
             <select name="doctorId" required>
                 <option value="">Select Doctor</option>

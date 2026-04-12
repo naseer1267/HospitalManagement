@@ -25,9 +25,13 @@ public class AppointmentService {
 	@Autowired
 	DoctorRepository dr;
 	
+	public long countAppointment() {
+		return ar.count();
+	}
 	
-	public Appointment bookAppointment(int pid, int id, String date, String time) {
-		Patient patient = pr.findByNumber(pid);
+	
+	public Appointment bookAppointment(Patient patient, int id, String date, String time) {
+		
 		Doctor doctor = dr.findById(id);
 		LocalDate localDate = LocalDate.parse(date);
 		LocalTime localTime = LocalTime.parse(time);

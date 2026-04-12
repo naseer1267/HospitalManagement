@@ -72,11 +72,21 @@ public class PatientTestcontrol {
         if (patient != null && patient.getPassword().equals(password)) {
             model.addAttribute("patient", patient);
             session.setAttribute("patient", patient);
-            return "patientdashboard.html"; 
+            return "redirect:/patientdashboard";
         } else {
             return "login.html"; 
-        }
+        } 
     }
+    @GetMapping("/patientdashboard")
+    public String dashboard(HttpSession session, Model model) {
+        Patient patient = (Patient) session.getAttribute("patient");
+        if (patient == null) {
+            return "redirect:/login";  // 🔥 this is what is happening now
+        }
+        model.addAttribute("patient", patient);
+        return "patientdashboard";
+    } 
+
 
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
@@ -115,10 +125,7 @@ public class PatientTestcontrol {
     }
     
 
-    @GetMapping("/appointments")
-    public String appointment() {
-    	return "appointment.html";
-    }
+
 
     @PostMapping("/submitContact")
     public String submitContact(@RequestParam String name, 
